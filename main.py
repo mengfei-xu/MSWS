@@ -44,8 +44,8 @@ def init_args(cli_args=None):
     parser.add_argument("--dataset_name", default="train_aug", type=str)
     parser.add_argument("--caculate_cate", default=1, type=int)
     parser.add_argument("--caculate_pattern", default=1, type=int)
-    parser.add_argument("--eta", type=float, default=0.20)
-    parser.add_argument("--zeta", type=float, default=0.10)
+    parser.add_argument("--eta", type=float, default=0.05)
+    parser.add_argument("--zeta", type=float, default=0.25)
     parser.add_argument("--out_path", type=str, default="")
 
     args = parser.parse_args([] if cli_args is None else cli_args)
@@ -303,8 +303,8 @@ class T5FineTuner(pl.LightningModule):
                 else torch.tensor(0.0, device=self.device)
             )
 
-        eta = float(getattr(self.hparams, "eta", 0.20))
-        zeta = float(getattr(self.hparams, "zeta", 0.10))
+        eta = float(getattr(self.hparams, "eta", 0.05))
+        zeta = float(getattr(self.hparams, "zeta", 0.25))
         eta = max(0.0, min(eta, 1.0))
         zeta = max(0.0, min(zeta, 1.0))
         if eta + zeta >= 1.0:
